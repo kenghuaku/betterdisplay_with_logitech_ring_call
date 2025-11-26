@@ -95,18 +95,21 @@ MacDisplayRelay 可以設定為 macOS 系統服務，在開機時自動啟動並
 #### 安裝服務
 
 1. **發行應用程式**（如果還沒發行）：
+
 ```bash
 cd MacDisplayRelay
 dotnet publish -c Release -r osx-$(uname -m) -p:PublishSingleFile=true -p:SelfContained=true
 ```
 
 2. **執行安裝腳本**：
+
 ```bash
 cd MacDisplayRelay
 ./install-service.sh
 ```
 
 安裝腳本會：
+
 - 將執行檔複製到 `/usr/local/bin/`
 - 安裝 launchd plist 檔案到 `~/Library/LaunchAgents/`
 - 自動啟動服務
@@ -145,20 +148,23 @@ cd MacDisplayRelay
 如果您想手動安裝，可以：
 
 1. 複製執行檔到 `/usr/local/bin/`：
+
 ```bash
 sudo cp bin/Release/net8.0/osx-$(uname -m)/publish/MacDisplayRelay /usr/local/bin/
 sudo cp bin/Release/net8.0/osx-$(uname -m)/publish/appsettings.json /usr/local/bin/
 ```
 
 2. 複製 plist 檔案到 LaunchAgents：
+
 ```bash
 cp net.kenghua.macdisplayrelay.plist ~/Library/LaunchAgents/
 ```
 
 3. 修改 plist 檔案中的路徑（如果需要）：
-編輯 `~/Library/LaunchAgents/net.kenghua.macdisplayrelay.plist`，確認 `ProgramArguments` 中的路徑正確。
+   編輯 `~/Library/LaunchAgents/net.kenghua.macdisplayrelay.plist`，確認 `ProgramArguments` 中的路徑正確。
 
 4. 載入服務：
+
 ```bash
 launchctl load ~/Library/LaunchAgents/net.kenghua.macdisplayrelay.plist
 ```

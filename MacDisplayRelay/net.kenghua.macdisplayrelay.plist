@@ -18,6 +18,8 @@
     <string>/usr/local/var/log/MacDisplayRelay/stderr.log</string>
     <key>WorkingDirectory</key>
     <string>/usr/local/bin</string>
+    <key>ProcessType</key>
+    <string>Background</string>
     <key>EnvironmentVariables</key>
     <dict>
         <key>PATH</key>
