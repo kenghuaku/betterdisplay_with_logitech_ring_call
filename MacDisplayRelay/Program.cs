@@ -36,7 +36,7 @@ app.MapGet("/switch/{inputCode:int}", async (int inputCode) =>
     {
         using var process = new Process { StartInfo = processStartInfo };
         process.Start();
-        
+
         var output = await process.StandardOutput.ReadToEndAsync();
         var error = await process.StandardError.ReadToEndAsync();
         await process.WaitForExitAsync();
