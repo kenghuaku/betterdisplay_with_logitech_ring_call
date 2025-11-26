@@ -1,0 +1,6 @@
+@MacDisplayRelay_HostAddress = http://localhost:5063
+
+GET {{MacDisplayRelay_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
