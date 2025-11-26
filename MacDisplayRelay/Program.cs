@@ -15,12 +15,13 @@ builder.WebHost.ConfigureKestrel(options =>
 
 var app = builder.Build();
 
+// 從設定檔讀取 BetterDisplay 設定
+var betterDisplayCliPath = builder.Configuration.GetValue<string>("BetterDisplay:CliPath", "/opt/homebrew/bin/betterdisplaycli");
+var displayName = builder.Configuration.GetValue<string>("BetterDisplay:DisplayName", "MPG322UX OLED");
+
 // 切換螢幕輸入源的路由
 app.MapGet("/switch/{inputCode:int}", async (int inputCode) =>
 {
-    const string betterDisplayCliPath = "/opt/homebrew/bin/betterdisplaycli";
-    const string displayName = "MPG322UX OLED";
-    
     var processStartInfo = new ProcessStartInfo
     {
         FileName = betterDisplayCliPath,
