@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>net.kenghua.macdisplayrelay</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/usr/local/bin/MacDisplayRelay</string>
+    </array>
+    <key>RunAtLoad</key>
+    <true/>
+    <key>KeepAlive</key>
+    <true/>
+    <key>StandardOutPath</key>
+    <string>/usr/local/var/log/MacDisplayRelay/stdout.log</string>
+    <key>StandardErrorPath</key>
+    <string>/usr/local/var/log/MacDisplayRelay/stderr.log</string>
+    <key>WorkingDirectory</key>
+    <string>/usr/local/bin</string>
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>PATH</key>
+        <string>/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+    </dict>
+</dict>
+</plist>
+
