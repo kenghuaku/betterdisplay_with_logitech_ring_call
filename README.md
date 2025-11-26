@@ -132,8 +132,8 @@ launchctl load ~/Library/LaunchAgents/net.kenghua.macdisplayrelay.plist
 launchctl list | grep net.kenghua.macdisplayrelay
 
 # 查看日誌
-tail -f /usr/local/var/log/MacDisplayRelay/stdout.log
-tail -f /usr/local/var/log/MacDisplayRelay/stderr.log
+tail -f ~/Library/Logs/MacDisplayRelay/stdout.log
+tail -f ~/Library/Logs/MacDisplayRelay/stderr.log
 ```
 
 #### 卸載服務

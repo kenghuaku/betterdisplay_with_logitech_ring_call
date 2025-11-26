@@ -13,9 +13,9 @@
     <key>KeepAlive</key>
     <true/>
     <key>StandardOutPath</key>
-    <string>/usr/local/var/log/MacDisplayRelay/stdout.log</string>
+    <string>__USER_LOG_DIR__/stdout.log</string>
     <key>StandardErrorPath</key>
-    <string>/usr/local/var/log/MacDisplayRelay/stderr.log</string>
+    <string>__USER_LOG_DIR__/stderr.log</string>
     <key>WorkingDirectory</key>
     <string>/usr/local/bin</string>
     <key>ProcessType</key>

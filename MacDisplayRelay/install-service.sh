@@ -9,13 +9,16 @@ SERVICE_NAME="net.kenghua.macdisplayrelay"
 PLIST_FILE="$SERVICE_NAME.plist"
 LAUNCHD_DIR="$HOME/Library/LaunchAgents"
 INSTALL_DIR="/usr/local/bin"
-LOG_DIR="/usr/local/var/log/MacDisplayRelay"
+LOG_DIR="$HOME/Library/Logs/MacDisplayRelay"
 
 # 檢查是否以 root 執行（安裝到系統目錄時需要）
 if [ "$EUID" -eq 0 ]; then
     LAUNCHD_DIR="/Library/LaunchAgents"
     INSTALL_DIR="/usr/local/bin"
     LOG_DIR="/usr/local/var/log/MacDisplayRelay"
+else
+    # 非 root 用戶使用用戶目錄下的日誌
+    LOG_DIR="$HOME/Library/Logs/MacDisplayRelay"
 fi
 
 echo "=== MacDisplayRelay 服務安裝 ==="
@@ -36,7 +39,7 @@ fi
 # 2. 建立必要的目錄
 echo "建立目錄..."
 sudo mkdir -p "$INSTALL_DIR"
-sudo mkdir -p "$LOG_DIR"
+mkdir -p "$LOG_DIR"
 
 # 3. 複製執行檔
 echo "複製執行檔到 $INSTALL_DIR..."
@@ -53,12 +56,21 @@ fi
 PLIST_SOURCE="$SCRIPT_DIR/$PLIST_FILE"
 PLIST_TARGET="$LAUNCHD_DIR/$PLIST_FILE"
 
-# 如果 plist 中的路徑與實際安裝路徑不同，需要更新
+# 創建臨時 plist 檔案，替換路徑變數
+TEMP_PLIST="/tmp/$PLIST_FILE"
+cp "$PLIST_SOURCE" "$TEMP_PLIST"
+
+# 替換執行檔路徑（如果需要）
 if [ "$INSTALL_DIR" != "/usr/local/bin" ]; then
-    echo "更新 plist 檔案中的路徑..."
-    sed "s|/usr/local/bin/MacDisplayRelay|$INSTALL_DIR/MacDisplayRelay|g" "$PLIST_SOURCE" > "/tmp/$PLIST_FILE"
-    PLIST_SOURCE="/tmp/$PLIST_FILE"
+    echo "更新 plist 檔案中的執行檔路徑..."
+    sed -i '' "s|/usr/local/bin/MacDisplayRelay|$INSTALL_DIR/MacDisplayRelay|g" "$TEMP_PLIST"
 fi
+
+# 替換日誌目錄路徑
+echo "更新 plist 檔案中的日誌路徑..."
+sed -i '' "s|__USER_LOG_DIR__|$LOG_DIR|g" "$TEMP_PLIST"
+
+PLIST_SOURCE="$TEMP_PLIST"
 
 # 6. 複製 plist 檔案
 echo "安裝 launchd plist 檔案..."
