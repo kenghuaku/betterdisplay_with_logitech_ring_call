@@ -27,6 +27,14 @@
 
 ### 在 Mac 上啟動服務
 
+**前置條件：** 請先安裝 `betterdisplaycli`：
+
+```bash
+brew install waydabber/betterdisplay/betterdisplaycli
+```
+
+**啟動服務：**
+
 ```bash
 cd MacDisplayRelay
 dotnet run
@@ -91,6 +99,14 @@ dotnet publish -c Release -r osx-x64 -p:PublishSingleFile=true -p:SelfContained=
 ### 設定開機自動執行（macOS 服務）
 
 MacDisplayRelay 可以設定為 macOS 系統服務，在開機時自動啟動並在背景執行。
+
+#### 前置條件
+
+在安裝服務之前，請確保已安裝 `betterdisplaycli`：
+
+```bash
+brew install waydabber/betterdisplay/betterdisplaycli
+```
 
 #### 安裝服務
 
@@ -198,7 +214,15 @@ dotnet publish -c Release -r win-x64 -p:PublishSingleFile=true -p:SelfContained=
 - macOS
 - .NET 8.0 Runtime（開發時）或自包含發行版本
 - BetterDisplay 軟體
-- `betterdisplaycli` 位於 `/opt/homebrew/bin/betterdisplaycli`
+- `betterdisplaycli`（需要先安裝）
+
+**安裝 betterdisplaycli：**
+
+```bash
+brew install waydabber/betterdisplay/betterdisplaycli
+```
+
+安裝後，`betterdisplaycli` 預設位於 `/opt/homebrew/bin/betterdisplaycli`
 
 ### Windows 端
 
@@ -244,7 +268,7 @@ dotnet publish -c Release -r win-x64 -p:PublishSingleFile=true -p:SelfContained=
 3. 伺服器 Port 可在 `MacDisplayRelay/appsettings.json` 的 `Server:Port` 設定中調整，預設值為 11112
 4. Windows 端的 Port、Timeout 和預設 IP 可在 `WinDisplayTrigger/appsettings.json` 的 `Client` 區段中調整
 5. `betterdisplaycli` 的路徑和顯示器名稱（"MPG322UX OLED"）可在 `MacDisplayRelay/Program.cs` 中修改
-6. 輸入源代碼需根據您的顯示器規格設定（常見值：15=HDMI1, 17=HDMI2, 18=DP, 27=Type-C）
+6. 輸入源代碼需根據您的顯示器規格設定（常見值：15=DP, 16=Type-C, 17=HDMI1）
 7. 若修改了 Mac 端的 Port，請同步更新 Windows 端的 `appsettings.json` 中的 `Client:Port` 設定
 
 ## 開發
