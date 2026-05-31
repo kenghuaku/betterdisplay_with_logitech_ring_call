@@ -1,6 +1,15 @@
-@MacDisplayRelay_HostAddress = http://localhost:5063
+@host = http://192.168.11.6:11112
 
-GET {{MacDisplayRelay_HostAddress}}/weatherforecast/
+### 切換到 DisplayPort（DDC 15）
+GET {{host}}/switch/15
+Accept: application/json
+
+### 切換到 USB-C / Type-C（DDC 16）
+GET {{host}}/switch/16
+Accept: application/json
+
+### 切換到 HDMI 1（DDC 17）
+GET {{host}}/switch/17
 Accept: application/json
 
 ###
