@@ -1,3 +1,3 @@
 @echo off
-
-WinDisplayTrigger.exe 192.168.11.6 15
+call "%~dp0_config.bat"
+"%~dp0WinDisplayTrigger.exe" %MAC_IP% 15

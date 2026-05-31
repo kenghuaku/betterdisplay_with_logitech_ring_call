@@ -310,6 +310,36 @@ curl http://192.168.11.6:11112/switch/15
 
 ---
 
+## 快速客製化：換成你的環境只需改這幾處
+
+| 你的環境 | 改哪裡 |
+| --- | --- |
+| **Mac IP** | Windows 端 `WinDisplayTrigger/_config.bat` 的 `MAC_IP`（三個 .bat 共用，**只改一處**） |
+| **顯示器名稱** | `MacDisplayRelay/appsettings.json` 的 `BetterDisplay:DisplayName`；Mac 本機腳本可用環境變數 `BD_DISPLAY` 覆寫 |
+| **DDC 輸入源代碼** | 依你的顯示器調整（見上方對照表），改 `.bat` / 腳本中的數字 |
+| **betterdisplaycli 路徑** | `BetterDisplay:CliPath`（Intel Mac 多為 `/usr/local/bin/...`），或環境變數 `BD_CLI` |
+
+**免改檔、用環境變數覆寫**：`MacDisplayRelay` 支援以環境變數覆寫設定（雙底線語法），方便在 launchd 或啟動腳本中設定：
+
+```bash
+BetterDisplay__DisplayName="DELL U2723QE" Server__Port=11112 ./MacDisplayRelay
+```
+
+`switch_pc.sh` 也支援以 `BD_DISPLAY` / `BD_CLI` 覆寫，免改腳本：
+
+```bash
+BD_DISPLAY="DELL U2723QE" ./switch_pc.sh 17
+```
+
+驗證服務與當前生效設定（根路徑健康檢查）：
+
+```bash
+curl http://<MacIP>:11112/
+# → {"service":"MacDisplayRelay","status":"running","displayName":"...","port":11112,...}
+```
+
+---
+
 ## 開機自動啟動（launchd）
 
 讓 `MacDisplayRelay` 在每台 Mac 開機時自動於背景常駐。

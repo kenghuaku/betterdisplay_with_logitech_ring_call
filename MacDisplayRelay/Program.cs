@@ -19,6 +19,17 @@ var app = builder.Build();
 var betterDisplayCliPath = builder.Configuration.GetValue<string>("BetterDisplay:CliPath", "/opt/homebrew/bin/betterdisplaycli");
 var displayName = builder.Configuration.GetValue<string>("BetterDisplay:DisplayName", "MPG322UX OLED");
 
+// 根路徑健康檢查：回傳目前生效的設定，方便他人確認自己的環境是否設定正確
+app.MapGet("/", () => Results.Ok(new
+{
+    service = "MacDisplayRelay",
+    status = "running",
+    displayName,
+    cliPath = betterDisplayCliPath,
+    port,
+    usage = "GET /switch/{inputCode}  例如 /switch/15 (DP) /switch/16 (Type-C) /switch/17 (HDMI1)"
+}));
+
 // 切換螢幕輸入源的路由
 app.MapGet("/switch/{inputCode:int}", async (int inputCode) =>
 {
